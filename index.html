@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Three.js 鸟类场景</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    #scene-container {
+      width: 100vw;
+      height: 100vh;
+      display: block;
+    }
+
+    #loading {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 18px;
+      z-index: 1000;
+      text-align: center;
+    }
+
+    .controls-info {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      color: white;
+      font-size: 14px;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 10px;
+      border-radius: 5px;
+      max-width: 300px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="loading">正在加载Three.js场景...</div>
+
+  <div id="scene-container"></div>
+
+  <div class="controls-info">
+    <strong>控制说明:</strong><br>
+    • 鼠标左键: 旋转视角<br>
+    • 鼠标右键: 平移视角<br>
+    • 滚轮: 缩放场景
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+
+  <script>
+    // 隐藏加载提示
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const loading = document.getElementById('loading');
+        if (loading) {
+          loading.style.display = 'none';
+        }
+      }, 2000);
+    });
+  </script>
+</body>
+
+</html>
