@@ -1,4 +1,5 @@
 import { World } from './world/world.js';
+import './components/BirdInfoModal.js';
 
 async function main() {
   // 获取场景容器
@@ -19,6 +20,15 @@ async function main() {
 
   // 完成加载过程
   await world.init();
+
+  // 设置鸟类点击事件监听
+  document.addEventListener('birdClicked', (event) => {
+    const { data } = event.detail;
+    if (data && data.birdType) {
+      // 显示鸟类信息模态框
+      window.BirdInfoModal.show(data.birdType);
+    }
+  });
 
   // 开始动画循环
   world.start();

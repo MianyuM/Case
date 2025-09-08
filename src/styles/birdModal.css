@@ -1,0 +1,258 @@
+/* 鸟类信息模态框样式 */
+.bird-modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.bird-modal-show {
+  opacity: 1 !important;
+}
+
+.bird-modal-content {
+  background-color: #ffffff;
+  margin: 5% auto;
+  padding: 0;
+  border-radius: 15px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 700px;
+  max-height: 80vh;
+  overflow-y: auto;
+  transform: translateY(-20px);
+  transition: transform 0.3s ease-out;
+  animation: slideIn 0.3s ease-out;
+}
+
+.bird-modal-show .bird-modal-content {
+  transform: translateY(0);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-30px) scale(0.95);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.bird-modal-header {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+  padding: 20px 30px;
+  border-radius: 15px 15px 0 0;
+  position: relative;
+  text-align: center;
+}
+
+.bird-modal-header h2 {
+  margin: 0;
+  font-size: 1.8em;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.bird-close {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bird-close:hover,
+.bird-close:focus {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.bird-modal-body {
+  padding: 30px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.bird-info-grid {
+  display: grid;
+  gap: 25px;
+}
+
+.bird-description {
+  font-size: 1.1em;
+  color: #555;
+  padding: 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 10px;
+  border-left: 4px solid #4facfe;
+}
+
+.bird-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.bird-detail-item {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 3px solid #28a745;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bird-detail-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.bird-detail-item strong {
+  color: #2c3e50;
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.bird-detail-item span {
+  color: #555;
+  font-size: 0.95em;
+}
+
+.bird-features {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e9ecef;
+}
+
+.bird-features h3 {
+  margin: 0 0 15px 0;
+  color: #2c3e50;
+  font-size: 1.3em;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.bird-features h3::before {
+  content: "✨";
+  margin-right: 10px;
+  font-size: 1.2em;
+}
+
+#bird-features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#bird-features-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+  position: relative;
+  padding-left: 25px;
+  transition: color 0.2s ease;
+}
+
+#bird-features-list li:last-child {
+  border-bottom: none;
+}
+
+#bird-features-list li::before {
+  content: "🔸";
+  position: absolute;
+  left: 0;
+  top: 10px;
+}
+
+#bird-features-list li:hover {
+  color: #4facfe;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .bird-modal-content {
+    width: 95%;
+    margin: 10% auto;
+    max-height: 85vh;
+  }
+
+  .bird-modal-header {
+    padding: 15px 20px;
+  }
+
+  .bird-modal-header h2 {
+    font-size: 1.5em;
+    padding-right: 40px;
+  }
+
+  .bird-modal-body {
+    padding: 20px;
+  }
+
+  .bird-details {
+    grid-template-columns: 1fr;
+  }
+
+  .bird-close {
+    right: 15px;
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bird-modal-content {
+    width: 98%;
+    margin: 5% auto;
+  }
+
+  .bird-modal-header h2 {
+    font-size: 1.3em;
+  }
+
+  .bird-modal-body {
+    padding: 15px;
+  }
+}
+
+/* 滚动条样式 */
+.bird-modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.bird-modal-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.bird-modal-content::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.bird-modal-content::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}

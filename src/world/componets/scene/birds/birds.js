@@ -29,6 +29,9 @@ async function loadBirds() {
         bird.position.set(...modelData.position);
         bird.scale.setScalar(modelData.scale);
 
+        // 保存模型信息供点击检测使用
+        bird.userData.modelUrl = modelData.url;
+
         // 设置动画
         if (gltf.animations && gltf.animations.length > 0) {
           const mixer = new AnimationMixer(bird);
@@ -38,8 +41,8 @@ async function loadBirds() {
         }
 
         // 添加旋转动画
-        bird.tick = (delta) => {
-          bird.rotation.y += delta * 0.5;
+        bird.tick = (delta, rotationSpeed = 0.5) => {
+          bird.rotation.y += delta * rotationSpeed;
         };
 
         birds.push(bird);
@@ -49,18 +52,26 @@ async function loadBirds() {
       }
     }
 
+    // 标记为鸟群对象
+    birdGroup.userData = { isBirdGroup: true };
+
     // 为整个鸟群添加动画循环
-    birdGroup.tick = (delta) => {
+    birdGroup.tick = (delta, animParams) => {
+      // 获取动画参数，如果没有传入则使用默认值
+      const params = animParams || { rotationSpeed: 0.2, birdRotationSpeed: 0.5, autoRotate: true };
+
       // 更新动画混合器
       mixers.forEach(mixer => mixer.update(delta));
 
       // 更新每只鸟的自定义动画
       birds.forEach(bird => {
-        if (bird.tick) bird.tick(delta);
+        if (bird.tick) bird.tick(delta, params.birdRotationSpeed);
       });
 
-      // 让整个鸟群缓慢旋转
-      birdGroup.rotation.y += delta * 0.2;
+      // 让整个鸟群旋转（如果启用自动旋转）
+      if (params.autoRotate) {
+        birdGroup.rotation.y += delta * params.rotationSpeed;
+      }
     };
 
     return birdGroup;
@@ -92,8 +103,14 @@ async function loadBirds() {
       fallbackGroup.add(birdGroup);
     }
 
-    fallbackGroup.tick = (delta) => {
-      fallbackGroup.rotation.y += delta * 0.5;
+    // 标记为鸟群对象
+    fallbackGroup.userData = { isBirdGroup: true };
+
+    fallbackGroup.tick = (delta, animParams) => {
+      const params = animParams || { rotationSpeed: 0.2, autoRotate: true };
+      if (params.autoRotate) {
+        fallbackGroup.rotation.y += delta * params.rotationSpeed;
+      }
     };
 
     return fallbackGroup;
